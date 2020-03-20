@@ -20,8 +20,6 @@ import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.epsilon.ecl.EclModule;
 import org.eclipse.epsilon.ecl.IEclModule;
 import org.eclipse.epsilon.ecl.trace.MatchTrace;
-import org.eclipse.epsilon.eol.EolModule;
-import org.eclipse.epsilon.eol.IEolModule;
 import org.eclipse.epsilon.eol.exceptions.models.EolModelElementTypeNotFoundException;
 import org.eclipse.epsilon.eol.models.IModel;
 import it.cs.gssi.similaritymetamodels.EpsilonStandaloneExample;
@@ -71,16 +69,16 @@ public class EComparator extends EpsilonStandaloneExample {
 		EPackage.Registry.INSTANCE.put(EcorePackage.eNS_URI, EcorePackage.eINSTANCE);
 		List<IModel> models = new ArrayList<IModel>();
 		models.add(createEmfModel("Source", source, 
-				"support/Ecore.ecore", true, false));
+				"/projectparmorel/SimilarityMetamodelsChecker/support/Ecore.ecore", true, false));
 		models.add(createEmfModel("Target", target, 
-				"support/Ecore.ecore", true, false));
+				"/projectparmorel/SimilarityMetamodelsChecker/support/Ecore.ecore", true, false));
 		
 		return models;
 	}
 
 	@Override
 	public String getSource() throws Exception {
-		return "epsilon/compare.ecl";
+		return "/projectparmorel/SimilarityMetamodelsChecker/epsilon/compare.ecl";
 	}
 
 	@Override
@@ -103,6 +101,7 @@ public class EComparator extends EpsilonStandaloneExample {
 		return sim;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public int checkComparison(IModel modeltocheck, MatchTrace successfull) {
 		
 		int simIndex=0;
