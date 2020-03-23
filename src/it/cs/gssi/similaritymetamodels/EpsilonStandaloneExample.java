@@ -19,7 +19,7 @@ import org.eclipse.epsilon.common.parse.problem.ParseProblem;
 import org.eclipse.epsilon.common.util.StringProperties;
 import org.eclipse.epsilon.ecl.IEclModule;
 import org.eclipse.epsilon.emc.emf.EmfModel;
-import org.eclipse.epsilon.eol.IEolModule;
+import org.eclipse.epsilon.eol.dt.ExtensionPointToolNativeTypeDelegate;
 import org.eclipse.epsilon.eol.exceptions.EolRuntimeException;
 import org.eclipse.epsilon.eol.exceptions.models.EolModelLoadingException;
 import org.eclipse.epsilon.eol.execute.context.Variable;
@@ -48,7 +48,7 @@ public abstract class EpsilonStandaloneExample {
 	public int execute(String source, String target) throws Exception {
 		
 		module = createModule();
-		module.parse(getFileURI(getSource()));
+		module.parse(getResourceURI(getSource()));
 		
 		if (module.getParseProblems().size() > 0) {
 			System.err.println("Parse errors occured...");
@@ -80,6 +80,7 @@ public abstract class EpsilonStandaloneExample {
 	
 	protected Object execute(IEclModule module) 
 			throws EolRuntimeException {
+		module.getContext().getNativeTypeDelegates().add(new ExtensionPointToolNativeTypeDelegate());
 		return module.execute();
 	}
 	
@@ -90,7 +91,7 @@ public abstract class EpsilonStandaloneExample {
 		StringProperties properties = new StringProperties();
 		properties.put(EmfModel.PROPERTY_NAME, name);
 		properties.put(EmfModel.PROPERTY_FILE_BASED_METAMODEL_URI,
-				getFileURI(metamodel).toString());
+				getResourceURI(metamodel).toString());
 		properties.put(EmfModel.PROPERTY_MODEL_URI, 
 				getFileURI(model).toString());
 		properties.put(EmfModel.PROPERTY_READONLOAD, readOnLoad + "");
@@ -155,5 +156,9 @@ public abstract class EpsilonStandaloneExample {
 		}
 		
 		return uri;
+	}
+	
+	protected URI getResourceURI(String fileName) throws URISyntaxException {
+		return getClass().getResource(fileName).toURI();
 	}
 }
