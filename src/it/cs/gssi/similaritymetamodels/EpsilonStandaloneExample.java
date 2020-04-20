@@ -159,6 +159,7 @@ public abstract class EpsilonStandaloneExample {
 	}
 	
 	protected URI getResourceURI(String fileName) throws URISyntaxException {
-		return getClass().getResource(fileName).toURI();
+		return getClass().getClassLoader().getResource(fileName).toURI();
+//		return getClass().getResource(fileName).toURI();
 	}
 }

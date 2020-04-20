@@ -69,16 +69,16 @@ public class EComparator extends EpsilonStandaloneExample {
 		EPackage.Registry.INSTANCE.put(EcorePackage.eNS_URI, EcorePackage.eINSTANCE);
 		List<IModel> models = new ArrayList<IModel>();
 		models.add(createEmfModel("Source", source, 
-				"/projectparmorel/SimilarityMetamodelsChecker/support/Ecore.ecore", true, false));
+				"Ecore.ecore", true, false));
 		models.add(createEmfModel("Target", target, 
-				"/projectparmorel/SimilarityMetamodelsChecker/support/Ecore.ecore", true, false));
+				"Ecore.ecore", true, false));
 		
 		return models;
 	}
 
 	@Override
 	public String getSource() throws Exception {
-		return "/projectparmorel/SimilarityMetamodelsChecker/epsilon/compare.ecl";
+		return "compare.ecl";
 	}
 
 	@Override
